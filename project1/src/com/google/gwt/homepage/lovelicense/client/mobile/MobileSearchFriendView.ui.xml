@@ -1,0 +1,135 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:w="urn:import:com.google.gwt.widget.client"
+  >
+
+  <ui:style>
+    .outer {
+      /*background: #eee;*/
+      background: white;
+    }
+    
+    .title {
+
+     
+      color: #709BE3;
+      padding: 4px 10px;
+      font-size: 12pt;
+      text-align:center;
+    }
+    
+   
+    
+    .label {
+      margin-top:15px;
+      margin-left:10px;
+      width:100px;
+      background-color: #2062B8;
+	  color: white;
+	  font-style: italic;
+	  text-align:left;
+	  padding:3px;
+    }
+    
+   
+    
+    .textBoxWrapper {
+      margin-left: 10px;
+    }
+    
+    
+    .birthdatetime{
+    	margin-left: 10px;
+   	    margin-top: 10px;
+    }
+    
+    
+   .searchFriendDiv{
+   		
+   	}
+   
+   
+ .searchFriendTable{
+ 	margin-left: 10px;
+   	margin-top: 10px;
+ 	border: 1px solid silver;
+ 	 border-collapse:collapse;
+    /*padding: 10px;*/
+ }
+ 
+ .searchFriendTable td{
+     text-align:center;
+ 	 border: 1px solid silver;
+ 	 padding: 5px;
+ }
+ 
+ .searchFriendTable .title{
+    text-align:center;
+    background-color: #2062B8;
+    color:white;
+ }
+ 
+
+
+    
+    
+    .buttonPanel {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+    }
+    
+    .button {
+      width: 100%;
+    }
+    
+    .desc {
+      padding : 5px;
+    }
+  </ui:style>
+
+  <g:DockLayoutPanel
+    unit="PT">
+    <!-- Title. -->
+    <g:north 
+      size="18">
+      <g:Label ui:field='subTitle'
+        addStyleNames="{style.title}"></g:Label>
+    </g:north>
+
+    <g:center>
+      <g:ScrollPanel addStyleNames="{style.outer}">
+        <g:HTMLPanel>
+
+          <!-- <g:Label ui:field='descLbl' addStyleNames="{style.desc}"></g:Label> -->
+
+          <!-- mySaju saju info -->
+          <div class="searchFriendDiv">
+		    <g:FlexTable  ui:field='searchFriendTable' addStyleNames="{style.searchFriendTable}"></g:FlexTable>       
+          </div>
+
+
+          <!-- Button panel. -->
+          <table
+            class="{style.buttonPanel}"
+            cellspacing="0"
+            cellpadding="0">
+            <tr>
+              <td
+                align="center"
+                style="width:50%;padding-right:5px;">
+                <w:TextButton
+                  ui:field="confirmButton"
+                  addStyleNames="{style.button}"></w:TextButton>
+              </td>
+            </tr>
+          </table>
+
+        </g:HTMLPanel>
+      </g:ScrollPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+
+</ui:UiBinder> 

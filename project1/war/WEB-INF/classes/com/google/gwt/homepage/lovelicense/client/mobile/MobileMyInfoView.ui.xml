@@ -1,0 +1,136 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:w="urn:import:com.google.gwt.widget.client"
+  xmlns:m="urn:import:com.google.gwt.homepage.lovelicense.client.ui"
+  >
+
+  <ui:style>
+    .outer {
+      /*background: #eee;*/
+      background: white;
+    }
+    
+    .title {
+
+      
+      color: #709BE3;
+      padding: 4px 10px;
+      font-size: 12pt;
+      text-align:center;
+    }
+    
+   
+    
+    .label {
+      margin-top:15px;
+      margin-left:10px;
+      width:100px;
+      background-color: #2062B8;
+	  color: white;
+	  font-style: italic;
+	  text-align:left;
+	  padding:3px;
+    }
+    
+   
+    
+    .textBoxWrapper {
+      margin-left: 10px;
+    }
+    
+   
+    
+    .buttonPanel {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+    }
+    
+    .button {
+      width: 100%;
+    }
+    
+    .desc {
+      padding : 5px;
+    }
+  </ui:style>
+
+  <g:DockLayoutPanel
+    unit="PT">
+    <!-- Title. -->
+    <g:north 
+      size="18">
+      <g:Label ui:field='subTitle'
+        addStyleNames="{style.title}"></g:Label>
+    </g:north>
+
+    <g:center>
+      <g:ScrollPanel addStyleNames="{style.outer}">
+        <g:HTMLPanel>
+
+          <g:Label ui:field='descLbl' addStyleNames="{style.desc}"></g:Label>
+
+          <!-- Edit Form. -->
+          <div class="">
+
+            
+            <div class="{style.label}">생년월일시</div>
+            
+            <div class="{style.textBoxWrapper}">
+                                    양력<g:ValueListBox ui:field='solar_yearEditor' />년
+                  <!-- <g:TextBox ui:field='solar_yearEditor' />년 -->
+               <g:ValueListBox ui:field='solar_monthEditor' />월 
+              <!--<g:TextBox ui:field='solar_monthEditor' />월--> 
+              <g:ValueListBox ui:field='solar_dateEditor' />일 
+              <!-- <g:TextBox ui:field='solar_dateEditor' />일 -->
+              <m:EditorListBox ui:field='birth_timeEditor' visibleItemCount='1'/> 
+              <!-- <g:ListBox ui:field='birth_timeEditor' visibleItemCount='1'/> -->
+              <!-- <g:TextBox ui:field='birth_timeEditor' /> -->
+            </div>
+            
+             <div class="{style.label}">기타 정보</div>
+            
+            <div class="{style.textBoxWrapper}">
+             <g:ValueListBox ui:field='sexEditor'/>
+              <g:ValueListBox ui:field='jobEditor' />
+              <g:ValueListBox ui:field='addr1Editor' /> 
+               <!-- <g:TextBox ui:field='sexEditor' />
+              <g:TextBox ui:field='jobEditor' />
+              <g:TextBox ui:field='addr1Editor' />-->
+            </div>
+                       
+           
+        </div>
+
+          <!-- Button panel. -->
+          <table
+            class="{style.buttonPanel}"
+            cellspacing="0"
+            cellpadding="0">
+            <tr>
+              <td
+                align="center"
+                style="width:50%;padding-right:5px;">
+                <w:TextButton
+                  ui:field="saveButton"
+                  addStyleNames="{style.button}"></w:TextButton>
+              </td>
+              <td
+                align="center"
+                style="width:50%;padding-left:5px;">
+                <w:TextButton
+                  ui:field="cancelButton"
+                  decoration="NEGATIVE"
+                  addStyleNames="{style.button}"></w:TextButton>
+              </td>
+            </tr>
+          </table>
+
+        </g:HTMLPanel>
+      </g:ScrollPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+
+</ui:UiBinder> 

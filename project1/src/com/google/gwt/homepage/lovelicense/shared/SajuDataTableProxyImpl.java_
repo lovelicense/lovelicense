@@ -1,0 +1,548 @@
+/*
+ * Copyright 2011 Google Inc.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package com.google.gwt.homepage.lovelicense.shared;
+
+import com.google.web.bindery.requestfactory.shared.EntityProxyId;
+
+import java.util.Date;
+
+import javax.jdo.annotations.Persistent;
+
+/**
+ * A task used in the task list.
+ */
+public class SajuDataTableProxyImpl implements SajuDataTableProxy {
+	 
+	    private String email;
+
+		
+		 
+		private String solar_year="";//양력 년
+		 
+		private String solar_month="";//양력 월
+		 
+		private String solar_date="";//양력 일
+	    
+		 
+		private String birth_time="";//태어난 시간
+	    
+		 
+		private String lunar_year="";//음력 년
+		 
+		private String lunar_month="";//음력 월
+		 
+		private String lunar_date="";//음력 일
+		 
+		private  Boolean isYunMonth=false;//음력 윤
+	    
+	    
+
+		 
+		private String yearSkyVal="";//년 천간
+		 
+		private String yearLandVal="";//년 지간
+		 
+		private String monthSkyVal="";//월 천간
+		 
+		private String monthLandVal="";//월 지간
+		 
+		private String dateSkyVal="";//일 천간
+		 
+		private String dateLandVal="";//일 지간
+		 
+		private String timeSkyVal="";//시간 천간
+		 
+		private String timeLandVal="";//시간 지간
+		
+		
+		 
+		private String yearSkyPM="";//년 천간 +or-
+		 
+		private String yearLandPM="";//년 지간 +or-
+		 
+		private String monthSkyPM="";//월 천간 +or-
+		 
+		private String monthLandPM="";//월 지간 +or-
+		 
+		private String dateSkyPM="";//일 천간 +or-
+		 
+		private String dateLandPM="";//일 지간 +or-
+		 
+		private String timeSkyPM="";//시간 천간 +or-
+		 
+		private String timeLandPM="";//시간 지간 +or-
+		
+		 
+		private String yearSky5hang="";//년 천간 오행
+		 
+		private String yearLand5hang="";//년 지간오행
+		 
+		private String monthSky5hang="";//월 천간 오행
+		 
+		private String monthLand5hang="";//월 지간 오행
+		 
+		private String dateSky5hang="";//일 천간 오행
+		 
+		private String dateLand5hang="";//일 지간 오행
+		 
+		private String timeSky5hang="";//시간 천간 오행
+		 
+		private String timeLand5hang="";//시간 지간 오행
+		
+		 
+		private String yoyakDesc="";//사주 요약
+		
+		 
+		private int plusPercent=0;//+%
+		 
+		private int minusPercent=0;//-%
+		
+		 
+		private int mokPlus=0;
+		 
+		private int whaPlus=0;
+		 
+		private int geumPlus=0;
+		 
+		private int suPlus=0;
+		
+		 
+		private int jamiMinus=0;
+		 
+		private int chukohMinus=0;
+		 
+		private int inyuMinus=0;
+		 
+		private int myosinMinus=0;
+		 
+		private int jinhaeMinus=0;
+		 
+		private int sasulMinus=0;
+		
+		 
+	    private int[] ohhangCnt ={0,0,0,0,0};//5행 갯수
+		
+		 
+		private float[] ohhangCntAvg ={0,0,0,0,0};//2개 사주의 합에서 5행 갯수 평균
+		
+		 
+		private String skyHab="";//갑기, 을경, 병신, 정임, 무계
+		
+		 
+		private String skyChung="";//갑경, 을신, 병임, 정계
+		
+		 
+		private Boolean neverMarriage=false;//불혼 계패살
+		
+		 
+		private int totalScore=0;//총점
+		
+		
+		 
+		private String  sex="";//성별
+		
+		 
+		private String  job="";//직업
+		
+		 
+		private String  addr1="";//사는 곳
+		
+
+  public SajuDataTableProxyImpl() {
+  }
+
+
+
+  public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
+	public String getSolar_year() {
+		return solar_year;
+	}
+
+	public void setSolar_year(String solar_year) {
+		this.solar_year = solar_year;
+	}
+
+	public String getSolar_month() {
+		return solar_month;
+	}
+
+	public void setSolar_month(String solar_month) {
+		this.solar_month = solar_month;
+	}
+
+	public String getSolar_date() {
+		return solar_date;
+	}
+
+	public void setSolar_date(String solar_date) {
+		this.solar_date = solar_date;
+	}
+
+	public String getBirth_time() {
+		return birth_time;
+	}
+
+	public void setBirth_time(String birth_time) {
+		this.birth_time = birth_time;
+	}
+
+	public String getLunar_year() {
+		return lunar_year;
+	}
+
+
+
+	public String getLunar_month() {
+		return lunar_month;
+	}
+
+
+
+	public String getLunar_date() {
+		return lunar_date;
+	}
+
+	
+
+	public Boolean isYunMonth() {
+		return isYunMonth;
+	}
+
+
+
+	public String getYearSkyVal() {
+		return yearSkyVal;
+	}
+
+	
+
+	public String getYearLandVal() {
+		return yearLandVal;
+	}
+
+	
+
+	public String getMonthSkyVal() {
+		return monthSkyVal;
+	}
+
+	
+
+	public String getMonthLandVal() {
+		return monthLandVal;
+	}
+
+	
+
+	public String getDateSkyVal() {
+		return dateSkyVal;
+	}
+
+
+
+	public String getDateLandVal() {
+		return dateLandVal;
+	}
+
+	
+
+	public String getYearSkyPM() {
+		return yearSkyPM;
+	}
+
+	
+
+	public String getYearLandPM() {
+		return yearLandPM;
+	}
+
+	
+
+	public String getMonthSkyPM() {
+		return monthSkyPM;
+	}
+
+	
+
+	public String getMonthLandPM() {
+		return monthLandPM;
+	}
+
+	
+
+	public String getDateSkyPM() {
+		return dateSkyPM;
+	}
+
+	
+
+	public String getDateLandPM() {
+		return dateLandPM;
+	}
+
+	
+
+	public String getYearSky5hang() {
+		return yearSky5hang;
+	}
+
+	
+
+	public String getYearLand5hang() {
+		return yearLand5hang;
+	}
+
+	
+
+	public String getMonthSky5hang() {
+		return monthSky5hang;
+	}
+
+	
+
+	public String getMonthLand5hang() {
+		return monthLand5hang;
+	}
+
+
+
+	public String getDateSky5hang() {
+		return dateSky5hang;
+	}
+
+	
+
+	public String getDateLand5hang() {
+		return dateLand5hang;
+	}
+
+
+
+	public String getYoyakDesc() {
+		return yoyakDesc;
+	}
+
+	
+	public int getPlusPercent() {
+		return plusPercent;
+	}
+
+	
+
+	public int getMinusPercent() {
+		return minusPercent;
+	}
+
+
+
+
+	public int getMokPlus() {
+		return mokPlus;
+	}
+
+
+	public int getWhaPlus() {
+		return whaPlus;
+	}
+
+
+	public int getGeumPlus() {
+		return geumPlus;
+	}
+
+	
+
+	public int getSuPlus() {
+		return suPlus;
+	}
+
+	
+
+	public int getJamiMinus() {
+		return jamiMinus;
+	}
+
+
+	public int getChukohMinus() {
+		return chukohMinus;
+	}
+
+
+	public int getInyuMinus() {
+		return inyuMinus;
+	}
+
+
+
+	public int getMyosinMinus() {
+		return myosinMinus;
+	}
+
+	
+
+	public int getJinhaeMinus() {
+		return jinhaeMinus;
+	}
+
+
+
+	public int getSasulMinus() {
+		return sasulMinus;
+	}
+
+
+
+	//public int[] getOhhangCnt() {
+		//return ohhangCnt;
+	//}
+
+	public int getOhhangCnt0() {
+		return ohhangCnt[0];
+	}
+	public int getOhhangCnt1() {
+		return ohhangCnt[1];
+	}
+	public int getOhhangCnt2() {
+		return ohhangCnt[2];
+	}
+	public int getOhhangCnt3() {
+		return ohhangCnt[3];
+	}
+	public int getOhhangCnt4() {
+		return ohhangCnt[4];
+	}
+	
+	public float getOhhangCntAvg0() {
+		return ohhangCntAvg[0];
+	}
+	public float getOhhangCntAvg1() {
+		return ohhangCntAvg[1];
+	}
+	public float getOhhangCntAvg2() {
+		return ohhangCntAvg[2];
+	}
+	public float getOhhangCntAvg3() {
+		return ohhangCntAvg[3];
+	}
+	public float getOhhangCntAvg4() {
+		return ohhangCntAvg[4];
+	}
+	
+
+	public String getTimeSkyVal() {
+		return timeSkyVal;
+	}
+
+
+
+	public String getTimeLandVal() {
+		return timeLandVal;
+	}
+
+
+
+	public String getTimeSkyPM() {
+		return timeSkyPM;
+	}
+
+	
+
+	public String getTimeLandPM() {
+		return timeLandPM;
+	}
+
+	
+	public String getTimeSky5hang() {
+		return timeSky5hang;
+	}
+
+	
+
+	public String getTimeLand5hang() {
+		return timeLand5hang;
+	}
+
+
+
+	//public float[] getOhhangCntAvg() {
+		//return ohhangCntAvg;
+	//}
+
+
+
+
+
+	public String getSkyHab() {
+		return skyHab;
+	}
+
+
+
+	public String getSkyChung() {
+		return skyChung;
+	}
+
+
+
+	public Boolean isNeverMarriage() {
+		return neverMarriage;
+	}
+
+
+
+	public Integer getTotalScore() {
+		return totalScore;
+	}
+
+	
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public String getAddr1() {
+		return addr1;
+	}
+
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	
+	
+	  public EntityProxyId<?> stableId() {
+		    return null;
+		  }
+}
