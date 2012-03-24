@@ -27,6 +27,7 @@ import com.google.gwt.resources.client.ClientBundle.Source;
 //import com.google.gwt.sample.mobilewebapp.client.desktop.MobileWebAppShellDesktop.MainMenuStyle;
 //import com.google.gwt.sample.mobilewebapp.client.desktop.MobileWebAppShellDesktop.Resources;
 import com.google.gwt.homepage.lovelicense.client.place.TaskCurrentSajuPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookListPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMyInfoPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskSajuViewPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskSearchFriendPlace;
@@ -159,7 +160,7 @@ public class MobileMainView extends Composite implements MainView {
     menuItems.add(new MainMenuItem(constants.mainMenuNameCurrentSaju(), new TaskCurrentSajuPlace()));
     menuItems.add(new MainMenuItem(constants.mainMenuNameSearchFriend(), new TaskSearchFriendPlace()));
     menuItems.add(new MainMenuItem(constants.mainMenuNameMyInfo(), new TaskMyInfoPlace()));
-    menuItems.add(new MainMenuItem(constants.mainMenuNameVisitBbs(), new TaskMyInfoPlace()));
+    menuItems.add(new MainMenuItem(constants.mainMenuNameVisitBbs(), new TaskGuestBookListPlace(true)));
     mainMenu.setRowData(menuItems);
 
     // Choose a place when a menu item is selected.

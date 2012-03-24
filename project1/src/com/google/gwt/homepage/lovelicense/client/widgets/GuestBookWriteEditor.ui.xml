@@ -1,0 +1,61 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:dt='urn:import:com.google.gwt.homepage.lovelicense.client.widgets'
+  xmlns:e='urn:import:com.google.gwt.editor.ui.client'>
+  <ui:style>
+    .guestBookWriteView {
+        width: 500px;
+        border-collapse: collapse;
+        text-align: center;
+        font-family: 'Trebuchet MS';
+    }
+    .guestBookWriteView td, .guestBookWriteView th {
+        font-size: 10pt;
+        border: 1px solid #98bf21;
+        height: 30px;
+    }
+    .guestBookWriteView th {
+        background-color:#A7C942;
+        color:#ffffff;
+        font-family: Georgia;
+    }
+    
+    .guestBookWriteView td {
+        text-align: left;
+    }
+     		
+  </ui:style>
+  <g:HTMLPanel>
+  	<table  class="{style.guestBookWriteView}">
+  		<tr>
+  			<th >제목</th>
+  			<td>
+	  			<e:ValueBoxEditorDecorator ui:field="subject">
+	       		 <e:valuebox>
+	        	  <g:TextBox />
+	       		 </e:valuebox>
+	     		 </e:ValueBoxEditorDecorator>
+     		 </td>
+  			
+  		</tr>
+  		
+  		
+  		
+  		
+  		<tr>
+  			<th>내용</th>
+  			<td colspan="3">
+	  			 <e:ValueBoxEditorDecorator ui:field="contents">
+        <e:valuebox>
+          <g:TextArea  />
+        </e:valuebox>
+      </e:ValueBoxEditorDecorator>
+     		 </td>
+  			
+  		</tr>
+  		
+  	</table>
+  	
+
+    
+  </g:HTMLPanel>
+</ui:UiBinder>

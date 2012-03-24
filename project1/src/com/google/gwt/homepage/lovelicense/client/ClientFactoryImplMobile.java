@@ -17,15 +17,24 @@ package com.google.gwt.homepage.lovelicense.client;
 
 
 import com.google.gwt.homepage.lovelicense.client.mobile.MobileCurrentSajuView;
+import com.google.gwt.homepage.lovelicense.client.mobile.MobileGuestBookDetailView;
+import com.google.gwt.homepage.lovelicense.client.mobile.MobileGuestBookEditView;
+import com.google.gwt.homepage.lovelicense.client.mobile.MobileGuestBookListView;
+import com.google.gwt.homepage.lovelicense.client.mobile.MobileGuestBookWriteView;
 import com.google.gwt.homepage.lovelicense.client.mobile.MobileMainView;
 import com.google.gwt.homepage.lovelicense.client.mobile.MobileMyInfoView;
 import com.google.gwt.homepage.lovelicense.client.mobile.MobileSajuViewView;
 import com.google.gwt.homepage.lovelicense.client.mobile.MobileSearchFriendView;
 import com.google.gwt.homepage.lovelicense.client.presenter.CurrentSajuView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookDetailView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookEditView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookWriteView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MainView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MyInfoView;
 import com.google.gwt.homepage.lovelicense.client.presenter.SajuViewView;
 import com.google.gwt.homepage.lovelicense.client.presenter.SearchFriendView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookDetailView;
 
 import com.google.gwt.homepage.lovelicense.client.mobile.LoveLicenseShellMobile;
 
@@ -41,7 +50,7 @@ public class ClientFactoryImplMobile extends ClientFactoryImpl {
   @Override
   protected LoveLicenseShell createShell() {
     return new LoveLicenseShellMobile(getEventBus(), orientationHelper, createMainView(),
-    		createMyInfoView(),createSajuViewView(),createCurrentSajuView(),createSearchFriendView(), constants);
+    		createMyInfoView(),createSajuViewView(),createCurrentSajuView(),createSearchFriendView(),createGuestBookListView(),createGuestBookDetailView(),createGuestBookWriteView(),createGuestBookEditView(), constants);
   }
 
   @Override
@@ -68,5 +77,25 @@ public class ClientFactoryImplMobile extends ClientFactoryImpl {
   @Override
   protected SearchFriendView createSearchFriendView() {
     return new MobileSearchFriendView(constants);
+  }
+  
+  @Override
+  protected GuestBookListView createGuestBookListView() {
+    return new MobileGuestBookListView(constants);
+  }
+  
+  @Override
+  protected GuestBookDetailView createGuestBookDetailView() {
+    return new MobileGuestBookDetailView(constants);
+  }
+  
+  @Override
+  protected GuestBookWriteView createGuestBookWriteView() {
+    return new MobileGuestBookWriteView(constants);
+  }
+  
+  @Override
+  protected GuestBookEditView createGuestBookEditView() {
+    return new MobileGuestBookEditView(constants);
   }
 }

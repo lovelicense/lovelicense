@@ -19,8 +19,15 @@ package com.google.gwt.homepage.lovelicense.client.event;
  * Names of the {@link ActionEvent}s used in this app.
  */
 public interface ActionNames {
-  //final String ADD_TASK = "addTask";
+  final String WRITE_GUESTBOOK = "writeGuestbook";
   final String MYINFO_CANCELED = "myInfoCanceled";
   final String GO_HOME = "goHome";
   final String MYINFO_SAVED = "myInfoSaved";
+  final String GUESTBOOK_EDITING_CANCELED = "guestBookEditingCanceled";
+  final String GUESTBOOK_WRITTING_CANCELED = "guestBookWritingCanceled";
+  final String GUESTBOOK_SAVED = "guestBookSaved";//신규, 수정 함께 사용
+  final String GUESTBOOK_DELETED ="guestBookDeleted";
+  final String GUESTBOOK_LIST ="guestList";
+  
+  
 }

@@ -20,9 +20,14 @@ import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.editor.client.Editor.Ignore;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView;
 import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView.CwConstants;
 import com.google.gwt.homepage.lovelicense.shared.GuestBookTableProxy;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -33,11 +38,13 @@ import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSe
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.widget.client.TextButton;
 import com.google.web.bindery.event.shared.EventBus;
 
 import java.util.Date;
@@ -48,19 +55,20 @@ import java.util.List;
  */
 public class MobileGuestBookListView extends Composite implements GuestBookListView {
   
-
+    
 	private CwConstants constants;
 	
+	final private int pageSize=3;
    /**
    * The UiBinder interface.
    */
-  interface MobileGuestBookViewUiBinder extends UiBinder<Widget, MobileGuestBookListView> {
+  interface MobileGuestBookListViewUiBinder extends UiBinder<Widget, MobileGuestBookListView> {
   }
 
   /**
    * The UiBinder used to generate the view.
    */
-  private static MobileGuestBookViewUiBinder uiBinder = GWT.create(MobileGuestBookViewUiBinder.class);
+  private static MobileGuestBookListViewUiBinder uiBinder = GWT.create(MobileGuestBookListViewUiBinder.class);
 
   
   
@@ -79,6 +87,13 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
   /**
    * Displays the list of tasks.
    */
+  
+  /**
+   * The title.
+   */
+  @UiField(provided = true)
+  Label subTitle;
+  
   @UiField(provided = true)
   CellTable<GuestBookTableProxy> guestBookList;
   
@@ -88,6 +103,10 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
   @UiField(provided = true)
   SimplePager pager;
 
+  
+  @UiField
+  TextButton writeButton;
+  
   /**
    * The presenter for this view.
    */
@@ -96,15 +115,23 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
   /**
    * Construct a new {@link MobileTaskListView}.
    */
-  public MobileGuestBookListView(EventBus bus,final PlaceController placeController,CwConstants constants) {
+  //public MobileGuestBookListView(EventBus bus,final PlaceController placeController,CwConstants constants) {
+  public MobileGuestBookListView(CwConstants constants) {
 
 	  this.constants=constants;
 	  
     // Create the CellList.
     //CellListResources cellListRes = GWT.create(CellListResources.class);
-    guestBookList = new CellTable<GuestBookTableProxy>(KEY_PROVIDER);
+	  
+	  subTitle = new Label();
+	  subTitle.setText(constants.mainMenuNameVisitBbs());
+	
+	    
+    guestBookList = new CellTable<GuestBookTableProxy>(pageSize, KEY_PROVIDER);
     //guestBookList.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
 
+    
+    guestBookList.setWidth("100%", true);
     
     // Create a Pager to control the table.
     SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
@@ -136,6 +163,16 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
     
     // Initialize the widget.
     initWidget(uiBinder.createAndBindUi(this));
+    
+    
+ 
+    writeButton.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
+        if (presenter != null) {
+          presenter.writeGuestBook();
+        }
+      }
+    });
   }
 
   
@@ -156,13 +193,17 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
     };
     //subjectColumn.setSortable(false);
     guestBookList.addColumn(subjectColumn, constants.guestBookListMenuSubject());
-    guestBookList.setColumnWidth(subjectColumn, 20, Unit.PX);
+    guestBookList.setColumnWidth(subjectColumn, 40, Unit.PCT);
     
-    
+   
+       // A custom date format
+        DateTimeFormat fmt = DateTimeFormat.getFormat("yyyy. MM. dd");
+       
+        
     
    // 글쓴날짜
     Column<GuestBookTableProxy, Date> dateColumn = new Column<GuestBookTableProxy, Date>(
-        new DateCell()) {
+        new DateCell(fmt)) {
       @Override
       public Date getValue(GuestBookTableProxy object) {
         return object.getReg_dt();
@@ -170,7 +211,7 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
     };
     //subjectColumn.setSortable(false);
     guestBookList.addColumn(dateColumn, constants.guestBookListMenuDate());
-    guestBookList.setColumnWidth(dateColumn, 20, Unit.PX);
+    guestBookList.setColumnWidth(dateColumn, 25, Unit.PCT);
 
     
     
@@ -184,7 +225,7 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
     };
     //subjectColumn.setSortable(false);
     guestBookList.addColumn(writerColumn, constants.guestBookListMenuWriter());
-    guestBookList.setColumnWidth(writerColumn, 20, Unit.PX);
+    guestBookList.setColumnWidth(writerColumn, 25, Unit.PCT);
     
     
     // 조회수
@@ -197,7 +238,7 @@ public class MobileGuestBookListView extends Composite implements GuestBookListV
     };
     //subjectColumn.setSortable(false);
     guestBookList.addColumn(cntColumn, constants.guestBookListMenuCnt());
-    guestBookList.setColumnWidth(cntColumn, 20, Unit.PX);
+    guestBookList.setColumnWidth(cntColumn, 10, Unit.PCT);
     
     
   }

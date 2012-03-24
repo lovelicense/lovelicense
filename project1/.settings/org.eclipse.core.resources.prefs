@@ -1,4 +1,4 @@
-#Tue Jan 03 22:29:46 KST 2012
+#Sun Jan 29 10:23:42 KST 2012
 eclipse.preferences.version=1
 encoding//src/com/google/gwt/homepage/lovelicense/client/App.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/ClientFactory.java=UTF-8
@@ -19,7 +19,9 @@ encoding//src/com/google/gwt/homepage/lovelicense/client/event/ActionNames.java=
 encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/LoveLicenseShellMobile.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MainMenuItem.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileCurrentSajuView.java=UTF-8
-encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileGuestBookListView.java_=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileGuestBookDetailView.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileGuestBookEditView.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileGuestBookListView.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileMainView.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileMyInfoView.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/mobile/MobileSajuViewView.java=UTF-8
@@ -30,8 +32,10 @@ encoding//src/com/google/gwt/homepage/lovelicense/client/place/TaskSajuViewPlace
 encoding//src/com/google/gwt/homepage/lovelicense/client/place/TaskSearchFriendPlace.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/CurrentSajuPresenter.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/CurrentSajuView.java=UTF-8
-encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/GuestBookListPresenter.java_=UTF-8
-encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/GuestBookListViewjava_=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/GuestBookEditView.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/GuestBookListPresenter.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/GuestBookListView.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/GuestBookWriteView.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/MainPresenter.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/MainView.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/MyInfoPresenter.java=UTF-8
@@ -42,10 +46,12 @@ encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/SearchFriendP
 encoding//src/com/google/gwt/homepage/lovelicense/client/presenter/SearchFriendView.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/ui/EditorListBox.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/client/ui/OrientationHelper.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/widgets/GuestBookDetailEditor.java=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/client/widgets/GuestBookEditEditor.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/server/FriendTable.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/server/GuestBookAnswerTable.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/server/GuestBookTable.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/server/SajuDataTable.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/server/UserServiceWrapper.java=UTF-8
-encoding//src/com/google/gwt/homepage/lovelicense/shared/GuestBookTableRequest.java_=UTF-8
+encoding//src/com/google/gwt/homepage/lovelicense/shared/GuestBookTableRequest.java=UTF-8
 encoding//src/com/google/gwt/homepage/lovelicense/shared/SajuDataTableRequest.java=UTF-8

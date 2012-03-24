@@ -18,10 +18,15 @@ package com.google.gwt.homepage.lovelicense.client.activity;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.place.shared.WithTokenizers;
 import com.google.gwt.homepage.lovelicense.client.place.TaskCurrentSajuPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookEditPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookListPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookViewEditPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookWritePlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMainPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMyInfoPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskSajuViewPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskSearchFriendPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookWritePlace;
 
 /**
  * This interface is the hub of your application's navigation system. It links
@@ -33,6 +38,6 @@ import com.google.gwt.homepage.lovelicense.client.place.TaskSearchFriendPlace;
  * Its implementation is code generated based on the @WithTokenizers
  * annotation.
  */
-@WithTokenizers({TaskMainPlace.Tokenizer.class, TaskMyInfoPlace.Tokenizer.class, TaskSajuViewPlace.Tokenizer.class, TaskCurrentSajuPlace.Tokenizer.class, TaskSearchFriendPlace.Tokenizer.class})
+@WithTokenizers({TaskMainPlace.Tokenizer.class, TaskMyInfoPlace.Tokenizer.class, TaskSajuViewPlace.Tokenizer.class, TaskCurrentSajuPlace.Tokenizer.class, TaskSearchFriendPlace.Tokenizer.class, TaskGuestBookListPlace.Tokenizer.class, TaskGuestBookViewEditPlace.Tokenizer.class, TaskGuestBookWritePlace.Tokenizer.class, TaskGuestBookEditPlace.Tokenizer.class})
 public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 }

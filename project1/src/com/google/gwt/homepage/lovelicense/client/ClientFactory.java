@@ -20,6 +20,10 @@ import com.google.gwt.place.shared.PlaceController;
 //import com.google.gwt.sample.mobilewebapp.presenter.task.TaskReadView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.homepage.lovelicense.client.presenter.CurrentSajuView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookDetailView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookEditView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookWriteView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MainView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MyInfoView;
 import com.google.gwt.homepage.lovelicense.client.presenter.SajuViewView;
@@ -102,5 +106,13 @@ public interface ClientFactory {
   CurrentSajuView getCurrentSajuView();
   
   SearchFriendView getSearchFriendView();
+  
+  GuestBookListView getGuestBookListView();
+  
+  GuestBookDetailView getGuestBookDetailView();
+  
+  GuestBookWriteView getGuestBookWriteView();
+  
+  GuestBookEditView getGuestBookEditView();
   
 }

@@ -26,6 +26,6 @@ public interface LoveLicenseRequestFactory extends RequestFactory {
    * Create a new {@link TaskRequest}.
    */
   SajuDataTableRequest sajuDataTableRequest();
-  //GuestBookTableRequest guestBookTableRequest();
+  GuestBookTableRequest guestBookTableRequest();
   //GuestBookAnswerTableRequest guestBookAnswerTableRequest();
 }

@@ -12,5 +12,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-log4j12-1.6.1.jar"/>
+	<classpathentry kind="lib" path="E:/mustBackup/helios/workspace/LoveLicenseCode/war/WEB-INF/lib/appengine-utils-server-1.0.jar"/>
+	<classpathentry kind="lib" path="E:/mustBackup/helios/workspace/LoveLicenseCode/war/WEB-INF/lib/appengine-utils-client-1.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

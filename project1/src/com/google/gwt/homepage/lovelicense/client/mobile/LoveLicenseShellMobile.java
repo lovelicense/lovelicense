@@ -27,6 +27,10 @@ import com.google.gwt.homepage.lovelicense.client.LoveLicenseShell;
 import com.google.gwt.homepage.lovelicense.client.event.ActionEvent;
 import com.google.gwt.homepage.lovelicense.client.event.ActionNames;
 import com.google.gwt.homepage.lovelicense.client.presenter.CurrentSajuView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookDetailView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookEditView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookWriteView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MainView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MyInfoView;
 import com.google.gwt.homepage.lovelicense.client.presenter.SajuViewView;
@@ -117,7 +121,7 @@ public class LoveLicenseShellMobile extends ResizeComposite implements LoveLicen
    * Construct a new {@link MobileWebAppShellMobile}.
    */
   public LoveLicenseShellMobile(final EventBus eventBus, OrientationHelper orientationHelper,
-		  MainView mainView, MyInfoView myInfoView, SajuViewView sajuViewView, CurrentSajuView currentSajuView, SearchFriendView searchFriendView, LoveLicenseConstants constants) {
+		  MainView mainView, MyInfoView myInfoView, SajuViewView sajuViewView, CurrentSajuView currentSajuView, SearchFriendView searchFriendView, GuestBookListView guestBookListView, GuestBookDetailView guestBookDetailView, GuestBookWriteView guestBookWriteView, GuestBookEditView guestBookEditView, LoveLicenseConstants constants) {
 	  
 	  /*  
 	  titleName = new Label();
@@ -135,6 +139,10 @@ public class LoveLicenseShellMobile extends ResizeComposite implements LoveLicen
      * figure out which direction to animate.
      */
     contentContainer.add(mainView);
+    contentContainer.add(guestBookListView);
+    contentContainer.add(guestBookDetailView);
+    contentContainer.add(guestBookWriteView);
+    contentContainer.add(guestBookEditView);
     contentContainer.add(myInfoView);
     contentContainer.add(sajuViewView);
     contentContainer.add(currentSajuView);

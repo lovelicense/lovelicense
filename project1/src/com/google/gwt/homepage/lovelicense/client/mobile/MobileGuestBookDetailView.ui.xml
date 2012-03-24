@@ -1,0 +1,151 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:w="urn:import:com.google.gwt.widget.client"
+  xmlns:dt='urn:import:com.google.gwt.homepage.lovelicense.client.widgets'
+  >
+
+  <ui:style>
+    .outer {
+      /*background: #eee;*/
+      background: white;
+    }
+    
+    .title {
+      color: #709BE3;
+      padding: 4px 10px;
+      font-size: 12pt;
+      text-align:center;
+    }
+    
+   
+    
+    .label {
+      margin-top:15px;
+      margin-left:10px;
+      width:100px;
+      background-color: #2062B8;
+	  color: white;
+	  font-style: italic;
+	  text-align:left;
+	  padding:3px;
+    }
+    
+   
+    
+    .textBoxWrapper {
+      margin-left: 10px;
+    }
+    
+    
+    .birthdatetime{
+    	margin-left: 10px;
+   	    margin-top: 10px;
+    }
+    
+    
+   
+   
+   .sajuInfo{
+   	margin-left: 10px;
+   	 margin-top: 10px;
+   	 width:200px;
+     height:150px;
+  	 border-collapse:collapse;
+   }
+   
+   .sajuInfo td{
+   	 text-align:center;
+ 	 border: 1px solid silver;
+ 	 padding: 8px;
+   }
+   
+    
+	.sajuShortInfo{
+		margin-left: 10px;
+	  margin-top: 10px;
+	  height:150px;
+	  width:200px;
+	  border-collapse:collapse;
+	 }
+	 
+	 
+	.sajuShortInfo td{
+	  border: 1px solid silver;
+	  padding: 8px;
+	 }
+	 
+	 /* .sajuShortInfo .ohangCnt 는 적용되지 않음. .sajuShortInfo가 cssbundle에 의해 자동
+	     class명이 특수문자로 변경되어버림
+	     위에 것처럼 td는 자동으로 .GCEDDDSWSD td 등으로 변경된다.*/
+	.ohangCnt{
+	  width:30px; 
+	 }
+	 
+	.percent{
+	  height:30px;
+	  text-align:center;
+	 }
+
+    
+    
+    .buttonPanel {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+    }
+    
+    .button {
+      width: 100%;
+    }
+    
+    .desc {
+      padding : 5px;
+    }
+    
+    .leftAlign{
+    	text-align:left;
+    }
+    
+    .centerAlign{
+    	text-align:center;
+    }
+  </ui:style>
+
+  <g:DockLayoutPanel
+    unit="PT">
+    <!-- Title. -->
+    <g:north 
+      size="18">
+      <g:Label ui:field='subTitle'
+        addStyleNames="{style.title}"></g:Label>
+    </g:north>
+
+    <g:center>
+      <g:ScrollPanel addStyleNames="{style.outer}">
+        <g:HTMLPanel>
+
+          <!-- <g:Label ui:field='descLbl' addStyleNames="{style.desc}"></g:Label> -->
+
+          
+          <div >
+            <dt:GuestBookDetailEditor  ui:field='guestbookDetail'/>
+          </div>
+          
+          
+
+
+          <!-- Button panel. -->
+          <div class="{style.centerAlign}">
+        <w:TextButton ui:field="editButton">수정</w:TextButton>
+        <w:TextButton ui:field="deleteButton">삭제</w:TextButton>
+        <w:TextButton ui:field="listButton">목록</w:TextButton>
+      </div>
+
+        </g:HTMLPanel>
+      </g:ScrollPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+
+</ui:UiBinder> 

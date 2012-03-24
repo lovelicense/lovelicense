@@ -1,7 +1,6 @@
 
 package com.google.gwt.homepage.lovelicense.server;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -28,15 +27,9 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 import com.google.gwt.homepage.lovelicense.shared.SajuDataTableProxy;
-
-
 
 
 import com.google.web.bindery.requestfactory.shared.Request;
@@ -55,84 +48,26 @@ import com.google.web.bindery.requestfactory.shared.Request;
 public class GuestBookTable {
 
 	
-	//@PrimaryKey
-    //@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    //private Long id;
-	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	@Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-    private String id;
+    private Long id;
+	
+	
+
 		
-	
-	
-
-
-
-
-	public String getId() {
-		return id;
-	}
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-
-
 	@Persistent
 	private Integer version;
 	
 	
 	@Persistent
-	@NotNull(message = "제목을 입력하세요")
-	@Size(min = 3, message = "제목은 3자리 이상 입력하세요")
 	private String subject;//제목
 	
 	@Persistent
 	private Date reg_dt;//등록일
 	
-	
 	@Persistent
 	private Date modi_dt;//수정일
 	
-	
-	public String getReg_dt_yyyymmdd() {
-		// A custom date format
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-		String s = "";
-		if(reg_dt!=null)
-			s = formatter.format(reg_dt);
-		else
-			;
-		return s;
-	}
-
-	public String getModi_dt_yyyymmdd() {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-		String s = "";
-		if(modi_dt!=null)
-			s = formatter.format(modi_dt);
-		else
-			;
-		return s;
-	}
-	
-	//오류가 나지 않도록 아무액션없는 값으로 함.
-	public void setModi_dt_yyyymmdd(String yyyymmdd){
-		;
-	}
-	//오류가 나지 않도록 아무액션없는 값으로 함.
-	public void setReg_dt_yyyymmdd(String yyyymmdd){
-		;
-	}
-	
-
-
-
-
 	@Persistent
 	private String email;//등록자
 	
@@ -142,39 +77,23 @@ public class GuestBookTable {
 	
 	
 	@Persistent
-	@NotNull(message = "내용을 입력하세요")
-	@Size(min = 3, message = "내용은 3자리 이상 입력하세요")
 	private String contents;//본문
 	
 	
 	
 	
 	
-	@Persistent(defaultFetchGroup = "true")
+	@Persistent
 	private GuestBookAnswerTable answer;//답변
 	
 	 
 	 
 	 
 	//private int questionWriteUpdateGubun =0;//신규등록(0), 수정(1)
-	@NotPersistent
 	private int answerWriteUpdateGubun =0;//답변 신규등록(1), 수정(2)
 	
-	 //글쓴이와 조회하는 사람과 똑같은지
-	public boolean getIsSelf(){
-		boolean result=false;
-		String curUserId = UserServiceWrapper.get().getCurrentUser().getEmail();
-System.out.println("##############"+curUserId+"*"+email);		
-		if(curUserId==null || curUserId.equals("")){//로그인하지 않았으면
-			result=false;
-		}
-		if(email.equals(curUserId)){
-			result=true;
-		}else{
-			result=false;
-		}
-		return result;
-	}
+	 
+	
 	
   
   public int getAnswerWriteUpdateGubun() {
@@ -197,8 +116,14 @@ public GuestBookAnswerTable getAnswer() {
 	}
 
 
-	
+	public Long getId() {
+		return id;
+	}
 
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 	public Integer getVersion() {
@@ -278,11 +203,11 @@ public GuestBookAnswerTable getAnswer() {
 
   
 	/* 해당하는 게시글 가져옴*/
-	public static GuestBookTable findGuestBookTable(String id) {
+	public static GuestBookTable findGuestBookTable(Long id) {
 		 //System.out.println("3333333333333333333333333");   
 
 		     PersistenceManager pm = persistenceManager();
-		     System.out.println("find"+id);  
+		   //  System.out.println("44444444444444444444");  
 		     try {
 		     	 
 		    	 GuestBookTable guestBook = pm.getObjectById(GuestBookTable.class, id);
@@ -312,15 +237,11 @@ public GuestBookAnswerTable getAnswer() {
 	      if (email == null) {//질문 insert
 	    	  email = curUserId;
 	    	  reg_dt=new Date();
-	    	  modi_dt=new Date();
-	    	  System.out.println("질문 등록");
 	      }else{//질문 modidt
 	    	  modi_dt=new Date();
 	      }
       }else if(answerWriteUpdateGubun==1){//답변 등록의 경우
     	  answer.setReg_dt(new Date());
-    	  answer.setModi_dt(new Date());
-    	  System.out.println("답변 등록");
       }else if(answerWriteUpdateGubun==2){//답변 수정의 경우
     	  answer.setModi_dt(new Date());
       }
@@ -328,7 +249,6 @@ public GuestBookAnswerTable getAnswer() {
       
       // Verify the current user owns the task before updating it.
       if (curUserId.equals(email)) {
-    	  
 		 pm.makePersistent(this);//적용      
       }
     } finally {
@@ -336,62 +256,6 @@ public GuestBookAnswerTable getAnswer() {
     }
   }
   
-  /**
-   * Persist this object in the data store.
-   */
-  public void persistCreate() {
-	  PersistenceManager pm = persistenceManager();
-    try {
-      // Set the user id if this is a new task.
-    	//System.out.println("persist#################");
-      String curUserId = UserServiceWrapper.get().getCurrentUser().getEmail();
-      
-      
-     
-	   
-	    	  email = curUserId;
-	    	  
-	    	//  TimeZone tz = TimeZone.getTimeZone("GMT+09:00");
-          	//Calendar oCalendar = Calendar.getInstance(tz);  // 현재 날짜/시간 등의 각종 정보 얻기
-         
-	    	  reg_dt=new Date();
-	    	  modi_dt=new Date();
-	    	  System.out.println("질문 등록");
-	     
-
-      
-      // Verify the current user owns the task before updating it.
-      if (curUserId.equals(email)) {
-    	  
-		 pm.makePersistent(this);//적용      
-      }
-    } finally {
-      pm.close();
-    }
-  }
-
-  //방명록 수정의 경우
-  public void persistEdit() {
-	  PersistenceManager pm = persistenceManager();
-    try {
-      // Set the user id if this is a new task.
-    	//System.out.println("persist#################");
-      String curUserId = UserServiceWrapper.get().getCurrentUser().getEmail();
-      
-      modi_dt=new Date();
-      
-     
-      System.out.println("질문 수정");
-      
-      // Verify the current user owns the task before updating it.
-      if (curUserId.equals(email)) {
-    	  
-		 pm.makePersistent(this);//적용      
-      }
-    } finally {
-      pm.close();
-    }
-  }
   
   /**
    * 조회수 update
@@ -425,7 +289,7 @@ public GuestBookAnswerTable getAnswer() {
   public void remove() {
 	  PersistenceManager pm = persistenceManager();
     try {
-      GuestBookTable guestBook = pm.getObjectById(GuestBookTable.class, this.id);
+      GuestBookTable guestBook = pm.getObjectById(GuestBookTable.class, id);
 
       // Verify the current user owns the task before removing it.
       if (UserServiceWrapper.get().getCurrentUser().getEmail().equals(guestBook.getEmail())) {
@@ -444,24 +308,15 @@ public GuestBookAnswerTable getAnswer() {
   public static List<GuestBookTable> findAllGuestBooks() {
 	  PersistenceManager pm = persistenceManager();
     try {
-    	Query query = pm.newQuery("SELECT  FROM " + GuestBookTable.class.getName()+" order by reg_dt desc " );
+    	Query query = pm.newQuery("SELECT  FROM " + GuestBookTable.class.getName()+" order by redi_dt desc " );
     	System.out.println("findAllGuestBooks"+query.toString());
     	List<GuestBookTable> guestBookList = (List<GuestBookTable>)query.execute();
-    	System.out.println("findAllGuestBooks-end"+guestBookList.size());
+    	System.out.println("findAllGuestBooks-end");
 
       /*
        * If this is the first time running the app, populate the datastore with
        * some default tasks and re-query the datastore for them.
        */
-    	
-    	/*geustBookList를 곧바로 참고하면 오류가 발생함*/
-    	//List<GuestBookTable> detached = pm.detachCopy(guestBookList);
-    	
-    	 //for(int x=0;x<guestBookList.size();x++)
-         	//System.out.println("resultServer"+guestBookList.get(x).getAnswer().getContents());
-
-    	
-    	
       if (guestBookList.size() == 0) {
         populateDatastore();
         guestBookList = (List<GuestBookTable>)query.execute();
@@ -481,23 +336,18 @@ public GuestBookAnswerTable getAnswer() {
   
   private static void populateDatastore() {
     {
-    	System.out.println("populateDatastore");
       // Task 0.
       GuestBookTable task0 = new GuestBookTable();
       task0.setSubject("홈페이지가 너무 좋네요0");
-     // task0.setEmail("test@gmail.com");
-      task0.setReg_dt(new Date());
-      task0.setModi_dt(new Date());
+      task0.setEmail("0321@naver.com");
       String contents0= new String("홈페이지가 너무 좋네요. 감사합니다.0") ;
       task0.setContents(contents0);
       
       GuestBookAnswerTable answer0 = new GuestBookAnswerTable();
-      answer0.setEmail("test@gmail.com");
+      answer0.setEmail("answer@naver.com");
       String contents00= new String("홈페이지가 너무 좋네요. 감사합니다.0") ;
       answer0.setContents(contents00);
-      answer0.setReg_dt(new Date());
-      answer0.setModi_dt(new Date());
-      //answer0.persist();
+      answer0.persist();
       task0.setAnswer(answer0);
       
       task0.persist();
@@ -506,19 +356,15 @@ public GuestBookAnswerTable getAnswer() {
       // Task 1.
     	GuestBookTable task1 = new GuestBookTable();
         task1.setSubject("홈페이지가 너무 좋네요1");
-        //task1.setEmail("test@gmail.com");
-        task1.setReg_dt(new Date());
-        task1.setModi_dt(new Date());
+        task1.setEmail("1321@naver.com");
         String contents1= new String("홈페이지가 너무 좋네요. 감사합니다.1") ;
         task1.setContents(contents1);
         
         GuestBookAnswerTable answer1 = new GuestBookAnswerTable();
-        answer1.setEmail("test@gmail.com");
+        answer1.setEmail("answer@naver.com");
         String contents01= new String("홈페이지가 너무 좋네요. 감사합니다.1") ;
         answer1.setContents(contents01);
-        answer1.setReg_dt(new Date());
-        answer1.setModi_dt(new Date());
-       // answer1.persist();
+        answer1.persist();
         task1.setAnswer(answer1);
         
         task1.persist();
@@ -527,19 +373,15 @@ public GuestBookAnswerTable getAnswer() {
       // Task 2.
     	GuestBookTable task2 = new GuestBookTable();
         task2.setSubject("홈페이지가 너무 좋네요2");
-        //task2.setEmail("test@gmail.com");
-        task2.setReg_dt(new Date());
-        task2.setModi_dt(new Date());
+        task2.setEmail("2321@naver.com");
         String contents2= new String("홈페이지가 너무 좋네요. 감사합니다.2") ;
         task2.setContents(contents2);
         
         GuestBookAnswerTable answer2 = new GuestBookAnswerTable();
-        answer2.setEmail("test@gmail.com");
+        answer2.setEmail("answer@naver.com");
         String contents02= new String("홈페이지가 너무 좋네요. 감사합니다.2") ;
         answer2.setContents(contents02);
-        answer2.setReg_dt(new Date());
-        answer2.setModi_dt(new Date());
-       // answer2.persist();
+        answer2.persist();
         task2.setAnswer(answer2);
         
         task2.persist();
@@ -548,68 +390,19 @@ public GuestBookAnswerTable getAnswer() {
       // Task 3.
     	GuestBookTable task3 = new GuestBookTable();
         task3.setSubject("홈페이지가 너무 좋네요3");
-        //task3.setEmail("test@gmail.com");
-        task3.setReg_dt(new Date());
-        task3.setModi_dt(new Date());
+        task3.setEmail("3321@naver.com");
         String contents3= new String("홈페이지가 너무 좋네요. 감사합니다.3") ;
         task3.setContents(contents3);
         
         GuestBookAnswerTable answer3 = new GuestBookAnswerTable();
-        answer3.setEmail("test@gmail.com");
+        answer3.setEmail("answer@naver.com");
         String contents03= new String("홈페이지가 너무 좋네요. 감사합니다.3") ;
         answer3.setContents(contents03);
-        answer3.setReg_dt(new Date());
-        answer3.setModi_dt(new Date());
-       // answer3.persist();
+        answer3.persist();
         task3.setAnswer(answer3);
         
         task3.persist();
     }
-    
-    {
-        // Task 4.
-      	GuestBookTable task4 = new GuestBookTable();
-          task4.setSubject("홈페이지가 너무 좋네요4");
-          //task4.setEmail("test@gmail.com");
-          task4.setReg_dt(new Date());
-          task4.setModi_dt(new Date());
-          String contents4= new String("홈페이지가 너무 좋네요. 감사합니다.4") ;
-          task4.setContents(contents4);
-          
-          GuestBookAnswerTable answer4 = new GuestBookAnswerTable();
-          answer4.setEmail("test@gmail.com");
-          String contents04= new String("홈페이지가 너무 좋네요. 감사합니다.4") ;
-          answer4.setContents(contents04);
-          answer4.setReg_dt(new Date());
-          answer4.setModi_dt(new Date());
-         // answer4.persist();
-          task4.setAnswer(answer4);
-          
-          task4.persist();
-      }
-    
-    
-    {
-        // Task 5.
-      	GuestBookTable task5 = new GuestBookTable();
-          task5.setSubject("홈페이지가 너무 좋네요5");
-          //task5.setEmail("test@gmail.com");
-          task5.setReg_dt(new Date());
-          task5.setModi_dt(new Date());
-          String contents5= new String("홈페이지가 너무 좋네요. 감사합니다.5") ;
-          task5.setContents(contents5);
-          
-          GuestBookAnswerTable answer5 = new GuestBookAnswerTable();
-          answer5.setEmail("test@gmail.com");
-          String contents05= new String("홈페이지가 너무 좋네요. 감사합니다.5") ;
-          answer5.setContents(contents05);
-          answer5.setReg_dt(new Date());
-          answer5.setModi_dt(new Date());
-         // answer5.persist();
-          task5.setAnswer(answer5);
-          
-          task5.persist();
-      }
   }
   
   

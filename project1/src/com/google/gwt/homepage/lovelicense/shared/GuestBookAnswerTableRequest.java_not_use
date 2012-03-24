@@ -15,30 +15,30 @@
  */
 package com.google.gwt.homepage.lovelicense.shared;
 
-import com.google.gwt.homepage.lovelicense.server.FriendTable;
-import com.google.gwt.homepage.lovelicense.server.GuestBookTable;
-import com.google.gwt.homepage.lovelicense.server.SajuDataTable;
+
+import com.google.gwt.homepage.lovelicense.server.GuestBookAnswerTable;
+
 import com.google.web.bindery.requestfactory.shared.InstanceRequest;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Remote request for {@link Task}.
  */
-@Service(GuestBookTable.class)
-public interface GuestBookTableRequest extends RequestContext {
+@Service(GuestBookAnswerTable.class)
+public interface GuestBookAnswerTableRequest extends RequestContext {
 
   
-  Request<List<GuestBookTableProxy>> findAllGuestBooks();
+  
 
-   Request<GuestBookTableProxy> findGuestBookTable(Long id);
+   //Request<GuestBookAnswerTableProxy> findGuestBookAnswerTable(Long id);
+	Request<GuestBookAnswerTableProxy> findGuestBookAnswerTable(String strKey);
   
    
-  InstanceRequest<GuestBookTableProxy, Void> persist();
-  InstanceRequest<GuestBookTableProxy, Void> remove();
+  InstanceRequest<GuestBookAnswerTableProxy, Void> persist();
+  InstanceRequest<GuestBookAnswerTableProxy, Void> remove();
 
 }

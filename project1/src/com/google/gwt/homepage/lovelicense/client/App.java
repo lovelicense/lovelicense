@@ -26,8 +26,18 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.homepage.lovelicense.client.activity.AppPlaceHistoryMapper;
 import com.google.gwt.homepage.lovelicense.client.event.ActionEvent;
 import com.google.gwt.homepage.lovelicense.client.event.ActionNames;
+import com.google.gwt.homepage.lovelicense.client.event.GuestBookDetailEditEvent;
+import com.google.gwt.homepage.lovelicense.client.event.ShowTaskEvent;
+import com.google.gwt.homepage.lovelicense.client.event.WriteGuestBookEvent;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookListPlace;
+
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookEditPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookViewEditPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookListPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookWritePlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMainPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMyInfoPlace;
+import com.google.gwt.homepage.lovelicense.shared.GuestBookTableProxy;
 
 import com.google.gwt.homepage.gaerequest.client.ReloadOnAuthenticationFailure;
 /*
@@ -106,33 +116,73 @@ public class App {
     activityManager.setDisplay(shell);
 
     parentView.add(shell);
-/*
-    ActionEvent.register(eventBus, ActionNames.ADD_TASK, new ActionEvent.Handler() {
+
+    /*방명록 작성*/
+    eventBus.addHandler(WriteGuestBookEvent.TYPE, new WriteGuestBookEvent.Handler() {
       @Override
-      public void onAction(ActionEvent event) {
-        placeController.goTo(TaskPlace.getTaskCreatePlace());
+      public void onWriteGuestBook(WriteGuestBookEvent event) {
+        placeController.goTo(new TaskGuestBookWritePlace());
+      }
+    });
+    
+    /*방명록 수정*/
+    eventBus.addHandler(GuestBookDetailEditEvent.TYPE, new GuestBookDetailEditEvent.Handler() {
+      @Override
+      public void onGuestBookDetailEdit(GuestBookDetailEditEvent event) {
+        placeController.goTo(new TaskGuestBookEditPlace(event.getGuestBook().getId(),event.getGuestBook()));
       }
     });
 
+    /*방명록 리스트에서 1개 클릭시 */
     eventBus.addHandler(ShowTaskEvent.TYPE, new ShowTaskEvent.Handler() {
       @Override
       public void onShowTask(ShowTaskEvent event) {
-        TaskProxy task = event.getTask();
-        placeController.goTo(TaskPlace.createTaskEditPlace(task.getId(), task));
+    	  GuestBookTableProxy task = event.getTask();
+        placeController.goTo(TaskGuestBookViewEditPlace.createTaskEditPlace(task.getId(), task));
       }
     });
 
-   
-
-   
-
-    ActionEvent.register(eventBus, ActionNames.EDITING_CANCELED, new ActionEvent.Handler() {
+    //방명록 삭제
+    ActionEvent.register(eventBus, ActionNames.GUESTBOOK_DELETED, new ActionEvent.Handler() {
       @Override
       public void onAction(ActionEvent event) {
-        placeController.goTo(new TaskListPlace(false));
+        placeController.goTo( new TaskGuestBookListPlace(true));
       }
     });
-*/
+
+    //방명록 등록 및 수정 후
+    ActionEvent.register(eventBus, ActionNames.GUESTBOOK_SAVED, new ActionEvent.Handler() {
+        @Override
+        public void onAction(ActionEvent event) {
+          placeController.goTo(new TaskGuestBookListPlace(true));
+        }
+      });
+    
+    //방명록 등록페이지에서 취소
+    ActionEvent.register(eventBus, ActionNames.GUESTBOOK_WRITTING_CANCELED, new ActionEvent.Handler() {
+        @Override
+        public void onAction(ActionEvent event) {
+          placeController.goTo(new TaskGuestBookListPlace(false));//refresh될께 없으므로
+        }
+      });
+    
+    //방명록 수정페이지에서 취소
+    ActionEvent.register(eventBus, ActionNames.GUESTBOOK_EDITING_CANCELED, new ActionEvent.Handler() {
+        @Override
+        public void onAction(ActionEvent event) {
+          placeController.goTo(new TaskGuestBookListPlace(false));//refresh될께 없으므로
+        }
+      });
+    
+    //방명록 세부페이지에서 목록
+    ActionEvent.register(eventBus, ActionNames.GUESTBOOK_LIST, new ActionEvent.Handler() {
+        @Override
+        public void onAction(ActionEvent event) {
+          placeController.goTo(new TaskGuestBookListPlace(false));//refresh될께 없으므로
+        }
+      });
+    
+    
     
     ActionEvent.register(eventBus, ActionNames.GO_HOME, new ActionEvent.Handler() {
         @Override
@@ -154,6 +204,9 @@ public class App {
           placeController.goTo(new TaskMainPlace());
         }
       });
+    
+   
+    
     
     GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
       @Override

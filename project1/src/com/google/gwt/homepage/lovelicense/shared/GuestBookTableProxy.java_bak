@@ -16,7 +16,7 @@
 package com.google.gwt.homepage.lovelicense.shared;
 
 import com.google.appengine.api.datastore.Text;
-
+import com.google.gwt.homepage.lovelicense.server.GuestBookAnswerTable;
 import com.google.gwt.homepage.lovelicense.server.GuestBookTable;
 
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
@@ -28,14 +28,17 @@ import java.util.Date;
  * A task used in the task list.
  */
 @ProxyFor(GuestBookTable.class)
-public interface GuestBookAnswerTableProxy extends EntityProxy {
+public interface GuestBookTableProxy extends EntityProxy {
 
-	
+	//public GuestBookAnswerTable getAnswer();
 
 	public Long getId();
 
 
 	
+	
+	public String getSubject();
+
 
 	public void setSubject(String subject);
 
@@ -51,11 +54,13 @@ public interface GuestBookAnswerTableProxy extends EntityProxy {
 	public String getEmail();
 
 
+	public int getCnt();
 
-	public Text getContents();
+
+	
 
 
-	public void setContents(Text contents);
+	public void setContents(String contents);
 	
 	
 }

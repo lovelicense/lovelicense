@@ -1,7 +1,6 @@
 
 package com.google.gwt.homepage.lovelicense.server;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -28,12 +27,8 @@ import javax.persistence.Entity;
 
 import javax.persistence.Id;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 import com.google.gwt.homepage.lovelicense.shared.SajuDataTableProxy;
-
-
 import com.google.web.bindery.requestfactory.shared.Request;
 
 /**
@@ -50,16 +45,11 @@ import com.google.web.bindery.requestfactory.shared.Request;
 public class GuestBookAnswerTable {
 
 	
-	//@PrimaryKey
-    //@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    //private Long id;
-	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	@Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-    private String id;
+    private Long id;
 	
-		
+	
 		
 	@Persistent
 	private Integer version;
@@ -95,34 +85,17 @@ public class GuestBookAnswerTable {
 	 
 	
 
-	public String getReg_dt_yyyymmdd() {
-		// A custom date format
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-		String s = "";
-		if(reg_dt!=null)
-			s = formatter.format(reg_dt);
-		else
-			;
-		return s;
+ 
+
+	public Long getId() {
+		return id;
 	}
 
-	public String getModi_dt_yyyymmdd() {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-		String s = "";
-		if(modi_dt!=null)
-			s = formatter.format(modi_dt);
-		else
-			;
-		return s;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	public void setModi_dt_yyyymmdd(String yyyymmdd){
-		;
-	}
-	public void setReg_dt_yyyymmdd(String yyyymmdd){
-		;
-	}
+
 
 	public Integer getVersion() {
 		return version;
@@ -191,14 +164,14 @@ public class GuestBookAnswerTable {
 	public GuestBookAnswerTable() {}
 
   
-	 public static GuestBookAnswerTable findGuestBookAnswerTable(String id) {
+	 public static GuestBookAnswerTable findGuestBookAnswerTable(Long id) {
 		 //System.out.println("3333333333333333333333333");   
 
 		     PersistenceManager pm = persistenceManager();
 		   //  System.out.println("44444444444444444444");  
 		     try {
 		     	 
-		    	 GuestBookAnswerTable guestAnswerBook = pm.getObjectById(GuestBookAnswerTable.class,  id);
+		    	 GuestBookAnswerTable guestAnswerBook = pm.getObjectById(GuestBookAnswerTable.class, id);
 		     //	System.out.println("5555555555555555");  
 		         return guestAnswerBook;
 		      

@@ -18,7 +18,10 @@ package com.google.gwt.homepage.lovelicense.client;
 import com.google.gwt.i18n.client.Constants;
 
 import com.google.gwt.homepage.lovelicense.client.presenter.CurrentSajuView;
-
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookDetailView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookEditView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookWriteView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MainView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MyInfoView;
 import com.google.gwt.homepage.lovelicense.client.presenter.SajuViewView;
@@ -30,7 +33,7 @@ import com.google.gwt.homepage.lovelicense.client.presenter.SearchFriendView;
 /**
  * Constants used throughout the showcase.
  */
-public interface LoveLicenseConstants extends Constants, MainView.CwConstants, MyInfoView.CwConstants, SajuViewView.CwConstants, CurrentSajuView.CwConstants, SearchFriendView.CwConstants{
+public interface LoveLicenseConstants extends Constants, MainView.CwConstants, MyInfoView.CwConstants, SajuViewView.CwConstants, CurrentSajuView.CwConstants, SearchFriendView.CwConstants, GuestBookListView.CwConstants, GuestBookDetailView.CwConstants, GuestBookWriteView.CwConstants, GuestBookEditView.CwConstants{
 
   /**
    * The path to source code for examples, raw files, and style definitions.

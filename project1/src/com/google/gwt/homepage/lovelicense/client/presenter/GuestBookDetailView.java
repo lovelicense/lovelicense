@@ -15,17 +15,18 @@
  */
 package com.google.gwt.homepage.lovelicense.client.presenter;
 
+import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.homepage.lovelicense.shared.GuestBookTableProxy;
 import com.google.gwt.homepage.ui.client.PresentsWidgets;
 import com.google.gwt.i18n.client.Constants;
+
 import com.google.gwt.user.client.ui.IsWidget;
 
-import java.util.List;
-
 /**
- * Implemented by views that display a list of tasks.
+ * A readonly view of a task.
  */
-public interface GuestBookListView extends IsWidget {
+public interface GuestBookDetailView extends Editor<GuestBookTableProxy>, IsWidget {
 
 	
 	/**
@@ -35,43 +36,44 @@ public interface GuestBookListView extends IsWidget {
 	  public static interface CwConstants extends Constants {
 		    String mainMenuNameVisitBbs();
 			
-			String guestBookListMenuSubject();
-			String guestBookListMenuDate();
-			String guestBookListMenuCnt();
-			String guestBookListMenuWriter();
+			String guestBookDetailMenuSubject();
+			String guestBookDetailMenuDate();
+			String guestBookDetailMenuCnt();
+			String guestBookDetailMenuWriter();
+			String guestBookDetailMenuContents();
+			
 			
 			
 		
 	  }
-	  
 	  
   /**
    * The presenter for this view.
    */
   public interface Presenter extends PresentsWidgets {
     /**
-     * Select a task.
-     * 
-     * @param selected the select task
+     * Switch to an edit view of this task.
      */
-    void selectTask(GuestBookTableProxy selected);
+    void editGuestBookDetail();
+    void deleteGuestBook();
+    void cancelGuestBook();
+    
   }
 
   /**
-   * Clear the list of tasks.
+   * Get the driver used to edit tasks in the view.
    */
-  void clearList();
-
+  SimpleBeanEditorDriver<GuestBookTableProxy, ?> getEditorDriver();
+  
   /**
-   * Sets the new presenter, and calls {@link Presenter#stop()} on the previous
-   * one.
+   * Set the {@link Presenter} for this view.
+   * @param presenter the presenter
    */
   void setPresenter(Presenter presenter);
-
-  /**
-   * Set the list of tasks to display.
-   * 
-   * @param tasks the list of tasks
-   */
-  void setGuestBook(List<GuestBookTableProxy> lists);
+  
+  //수정버튼 활성화
+  void setModifyBtn();
+  
+  //답변이 있을때 답변이 보이게 없을 때 없다는 메시지
+  void setAnswerVisible(boolean answerExist);
 }

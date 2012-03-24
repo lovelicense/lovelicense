@@ -31,6 +31,10 @@ import com.google.gwt.homepage.lovelicense.client.mobile.MobileMyInfoView;
 import com.google.gwt.homepage.lovelicense.client.mobile.LoveLicenseShellMobile;
 
 import com.google.gwt.homepage.lovelicense.client.presenter.CurrentSajuView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookDetailView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookEditView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookListView;
+import com.google.gwt.homepage.lovelicense.client.presenter.GuestBookWriteView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MainView;
 import com.google.gwt.homepage.lovelicense.client.presenter.MyInfoView;
 import com.google.gwt.homepage.lovelicense.client.presenter.SajuViewView;
@@ -73,6 +77,10 @@ class ClientFactoryImpl implements ClientFactory {
   private SajuViewView sajuViewView; 
   private CurrentSajuView currentSajuView;
   private SearchFriendView searchFriendView;
+  private GuestBookListView guestBookListView;
+  private GuestBookDetailView guestBookDetailView;
+  private GuestBookWriteView guestBookWriteView;
+  private GuestBookEditView guestBookEditView;
   
   private ActivityManager activityManager;
 
@@ -170,6 +178,36 @@ class ClientFactoryImpl implements ClientFactory {
 	    }
 	    return searchFriendView;
 	  }
+  
+  public GuestBookListView getGuestBookListView() {
+	    if (guestBookListView == null) {
+	    	guestBookListView = createGuestBookListView();
+	    }
+	    return guestBookListView;
+	  }
+
+  
+  public GuestBookDetailView getGuestBookDetailView() {
+	    if (guestBookDetailView == null) {
+	    	guestBookDetailView = createGuestBookDetailView();
+	    }
+	    return guestBookDetailView;
+	  }
+
+  
+  public GuestBookWriteView getGuestBookWriteView() {
+	    if (guestBookWriteView == null) {
+	    	guestBookWriteView = createGuestBookWriteView();
+	    }
+	    return guestBookWriteView;
+	  }
+  
+  public GuestBookEditView getGuestBookEditView() {
+	    if (guestBookEditView == null) {
+	    	guestBookEditView = createGuestBookEditView();
+	    }
+	    return guestBookEditView;
+	  }
 
   /**
    * ActivityMapper determines an Activity to run for a particular place,
@@ -224,6 +262,27 @@ class ClientFactoryImpl implements ClientFactory {
   }
   
   protected SearchFriendView createSearchFriendView() {
+      return null;
+	  //return new MobileMyInfoView();
+  }
+  
+  
+  protected GuestBookListView createGuestBookListView() {
+      return null;
+	  //return new MobileMyInfoView();
+  }
+  
+  protected GuestBookDetailView createGuestBookDetailView() {
+      return null;
+	  //return new MobileMyInfoView();
+  }
+  
+  protected GuestBookWriteView createGuestBookWriteView() {
+      return null;
+	  //return new MobileMyInfoView();
+  }
+  
+  protected GuestBookEditView createGuestBookEditView() {
       return null;
 	  //return new MobileMyInfoView();
   }

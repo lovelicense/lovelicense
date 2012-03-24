@@ -1,0 +1,120 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder
+  xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:c="urn:import:com.google.gwt.user.cellview.client"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  xmlns:w="urn:import:com.google.gwt.widget.client"
+  >
+
+  <ui:style>
+  
+  .sajuDiv {
+      	align:center;
+    }
+    
+    .guestBookTable {
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    
+    .guestBookList {
+     
+      text-align: center;
+     
+    }
+    
+    .rightAlign{
+    	text-align:left;
+    }
+    
+    .centerAlign{
+    	text-align:center;
+    }
+    
+     .outer {
+      /*background: #eee;*/
+      background: white;
+    }
+    
+    .title {
+
+      
+      color: #709BE3;
+      padding: 4px 10px;
+      font-size: 12pt;
+      text-align:center;
+    }
+    
+  </ui:style>
+
+
+ <g:DockLayoutPanel
+    unit="PT">
+    <!-- Title. -->
+    <g:north 
+      size="18">
+      <g:Label ui:field='subTitle'
+        addStyleNames="{style.title}"></g:Label>
+    </g:north>
+
+    <g:center>
+      <g:ScrollPanel addStyleNames="{style.outer}">
+        <g:HTMLPanel>
+
+          <!-- <g:Label ui:field='descLbl' addStyleNames="{style.desc}"></g:Label> -->
+
+          
+          <div class="sajuDiv">
+			<c:CellTable
+            pageSize='3' addStyleNames='{style.guestBookTable}'
+            ui:field='guestBookList' />
+    
+   
+    			<c:SimplePager ui:field='pager' />
+                 
+                 <w:TextButton ui:field="writeButton">글쓰기</w:TextButton>      
+           
+          </div>
+
+          <!-- Button panel. -->
+        <!--   <table
+            class="{style.buttonPanel}"
+            cellspacing="0"
+            cellpadding="0">
+            <tr>
+              <td
+                align="center"
+                style="width:50%;padding-right:5px;">
+                <w:TextButton
+                  ui:field="confirmButton"
+                  addStyleNames="{style.button}"></w:TextButton>
+              </td>
+            </tr>
+          </table> -->
+
+        </g:HTMLPanel>
+      </g:ScrollPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+
+<!-- 
+  <g:FlowPanel addStyleNames='{style.guestBookList}'>
+  	<c:CellTable
+            pageSize='3' addStyleNames='{style.guestBookTable}'
+            ui:field='guestBookList' />
+    
+   
+    	<c:SimplePager ui:field='pager' />
+   
+  
+        <w:TextButton ui:field="writeButton">글쓰기</w:TextButton>
+     
+   </g:FlowPanel>    -->
+         
+      
+    
+      
+  
+
+</ui:UiBinder> 

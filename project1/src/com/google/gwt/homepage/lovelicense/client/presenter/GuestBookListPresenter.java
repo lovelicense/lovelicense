@@ -17,8 +17,11 @@ package com.google.gwt.homepage.lovelicense.client.presenter;
 
 import com.google.gwt.homepage.lovelicense.client.ClientFactory;
 import com.google.gwt.homepage.lovelicense.client.event.ShowTaskEvent;
+import com.google.gwt.homepage.lovelicense.client.event.WriteGuestBookEvent;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookListPlace;
 //import com.google.gwt.homepage.lovelicense.client.event.TaskListUpdateEvent;
 import com.google.gwt.homepage.lovelicense.shared.GuestBookTableProxy;
+
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
@@ -52,10 +55,16 @@ public class GuestBookListPresenter implements GuestBookListView.Presenter {
    */
   private Timer refreshTimer;
 
-  public GuestBookListPresenter(ClientFactory clientFactory) {
+  public GuestBookListPresenter(ClientFactory clientFactory, boolean clearTaskList) {
     this.clientFactory = clientFactory;
+    this.clearTaskList = clearTaskList;
     clientFactory.getGuestBookListView().setPresenter(this);
   }
+  
+  public GuestBookListPresenter(ClientFactory clientFactory, TaskGuestBookListPlace place) {
+	    this(clientFactory, place.isTaskListStale());
+	  }
+
 
  
 
@@ -74,11 +83,15 @@ public class GuestBookListPresenter implements GuestBookListView.Presenter {
     eventBus.fireEvent(new ShowTaskEvent(selected));
   }
 
+  public void writeGuestBook(){
+	eventBus.fireEvent(new WriteGuestBookEvent()); 
+  }
+  
   @Override
   public void start(EventBus eventBus) {
     this.eventBus = eventBus;
     // Add a handler to the 'add' button in the shell.
-    clientFactory.getShell().setAddButtonVisible(true);
+    //clientFactory.getShell().setAddButtonVisible(true);
 
     // Clear the task list and display it.
     if (clearTaskList) {
@@ -94,8 +107,9 @@ public class GuestBookListPresenter implements GuestBookListView.Presenter {
     };
 
     // Load the saved task list from storage
-    List<TaskProxy> list = clientFactory.getTaskProxyLocalStorage().getTasks();
-    setTasks(list);
+    //List<GuestBookTableProxy> list = clientFactory.getTaskProxyLocalStorage().getTasks();
+    List<GuestBookTableProxy> list = null;
+    //setTasks(list);
 
     // Request the task list now.
     refreshTaskList();
@@ -111,41 +125,45 @@ public class GuestBookListPresenter implements GuestBookListView.Presenter {
     }
   }
 
-  private TaskListView getView() {
-    return clientFactory.getTaskListView();
+  private GuestBookListView getView() {
+    return clientFactory.getGuestBookListView();
   }
 
   /**
    * Refresh the task list.
    */
   private void refreshTaskList() {
-    clientFactory.getRequestFactory().taskRequest().findAllTasks().fire(
-        new Receiver<List<TaskProxy>>() {
+    clientFactory.getRequestFactory().guestBookTableRequest().findAllGuestBooks().with("answer").fire(
+        new Receiver<List<GuestBookTableProxy>>() {
           @Override
           public void onFailure(ServerFailure error) {
             // ignore
           }
 
           @Override
-          public void onSuccess(List<TaskProxy> response) {
+          public void onSuccess(List<GuestBookTableProxy> response) {
             // Early exit if this activity has already been canceled.
             if (eventBus == null) {
               return;
             }
-
+//System.out.println("GuestBookListSize"+response.size()+response.get(1).getAnswer().getContents());
             // Display the tasks in the view.
             if (response == null) {
-              response = Collections.<TaskProxy> emptyList();
+              response = Collections.<GuestBookTableProxy> emptyList();
             }
+            
             setTasks(response);
+            
+            //for(int x=0;x<response.size();x++)
+            	//System.out.println("result"+response.get(x).getSubject());
 
             // save the response to storage
-            clientFactory.getTaskProxyLocalStorage().setTasks(response);
+           // clientFactory.getTaskProxyLocalStorage().setTasks(response);
 
             // Restart the timer.
             refreshTimer.schedule(REFRESH_DELAY);
           }
-        });
+       });
   }
 
   /**
@@ -155,4 +173,6 @@ public class GuestBookListPresenter implements GuestBookListView.Presenter {
     getView().setGuestBook(tasks);
     //eventBus.fireEventFromSource(new TaskListUpdateEvent(tasks), this);
   }
+  
+  
 }

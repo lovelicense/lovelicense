@@ -22,6 +22,10 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.homepage.lovelicense.client.ClientFactory;
 import com.google.gwt.homepage.lovelicense.client.place.TaskCurrentSajuPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookEditPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookListPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookViewEditPlace;
+import com.google.gwt.homepage.lovelicense.client.place.TaskGuestBookWritePlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMainPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskMyInfoPlace;
 import com.google.gwt.homepage.lovelicense.client.place.TaskSajuViewPlace;
@@ -81,6 +85,25 @@ public class AppActivityMapper implements ActivityMapper {
     	
         return new SearchFriendActivity(clientFactory);
        }
+     if (place instanceof TaskGuestBookListPlace) {//방명록리스트
+     	
+         return new GuestBookListActivity(clientFactory, (TaskGuestBookListPlace)place); 
+        }
+     
+     if (place instanceof TaskGuestBookViewEditPlace) {//방명록 세부
+      	
+         return new GuestBookDetailActivity(clientFactory, (TaskGuestBookViewEditPlace)place); 
+        }
+     
+     if (place instanceof TaskGuestBookWritePlace) {//방명록 글쓰기
+       	
+         return new GuestBookWriteActivity(clientFactory); 
+        }
+     
+     if (place instanceof TaskGuestBookEditPlace) {//방명록 글쓰기
+        	
+         return new GuestBookEditActivity(clientFactory, (TaskGuestBookEditPlace)place ); 
+        }
     
 
     return null;
