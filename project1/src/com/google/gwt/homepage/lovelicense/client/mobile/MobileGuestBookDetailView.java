@@ -150,4 +150,9 @@ public class MobileGuestBookDetailView extends Composite implements GuestBookDet
   public void setAnswerVisible(boolean answerExist){
 	  guestbookDetail.setAnswerVisible(answerExist);
   }
+  
+  
+  public void init(){
+	  guestbookDetail.init();
+  }
 }
