@@ -279,20 +279,24 @@ public GuestBookAnswerTable getAnswer() {
   
 	/* 해당하는 게시글 가져옴*/
 	public static GuestBookTable findGuestBookTable(String id) {
-		 //System.out.println("3333333333333333333333333");   
-
+		   
+		
 		     PersistenceManager pm = persistenceManager();
-		     System.out.println("find"+id);  
+		     //System.out.println("find"+id);  
 		     try {
 		     	 
 		    	 GuestBookTable guestBook = pm.getObjectById(GuestBookTable.class, id);
 		     //	System.out.println("5555555555555555");  
-		         return guestBook;
-		      
-		      
+		         if(guestBook!=null){
+		        	 return guestBook;
+		         }
+		         return null;
+		     } catch(RuntimeException e) {//delete후 request factory에서 유효성 확인시JDOObjectNotFoundException처리 
+                 return null; 
 		     } finally {
 		     	pm.close();
 		     }
+		   
 		   }
 
  
@@ -462,10 +466,10 @@ public GuestBookAnswerTable getAnswer() {
 
     	
     	
-      if (guestBookList.size() == 0) {
-        populateDatastore();
-        guestBookList = (List<GuestBookTable>)query.execute();
-      }
+      //if (guestBookList.size() == 0) {
+        //populateDatastore();
+        //guestBookList = (List<GuestBookTable>)query.execute();
+      //}
 
       return guestBookList;
     } finally {
