@@ -44,4 +44,12 @@ public class GuestBookAnswerEditor extends Composite implements Editor<GuestBook
   public GuestBookAnswerEditor() {
     initWidget(GWT.<Binder> create(Binder.class).createAndBindUi(this));
   }
+  
+  public void init(){
+	  email.setText("");
+	  reg_dt_yyyymmdd.setText("");
+	  contents.setText("");
+	 
+  }
+  
 }

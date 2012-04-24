@@ -91,4 +91,13 @@ public class GuestBookDetailEditor extends Composite implements Editor<GuestBook
 		  noAnswer.setVisible(true);
 	  }
   }
+  
+  public void init(){
+	  subject.setText("");
+	  cnt.setValue(0);
+	  email.setText("");
+	  reg_dt_yyyymmdd.setText("");
+	  contents.setText("");
+	  answer.init();
+  }
 }
