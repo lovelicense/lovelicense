@@ -76,4 +76,6 @@ public interface GuestBookDetailView extends Editor<GuestBookTableProxy>, IsWidg
   
   //답변이 있을때 답변이 보이게 없을 때 없다는 메시지
   void setAnswerVisible(boolean answerExist);
+  
+  void init();
 }

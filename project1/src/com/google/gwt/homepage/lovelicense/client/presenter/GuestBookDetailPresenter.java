@@ -195,6 +195,7 @@ public class GuestBookDetailPresenter implements GuestBookDetailView.Presenter {
   public void stop() {
     eventBus = null;
     // Ignore all incoming responses to the requests from this activity.
+    getView().init();
     isDead = true;
   }
 

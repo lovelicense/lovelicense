@@ -39,7 +39,7 @@ public class GuestBookListPresenter implements GuestBookListView.Presenter {
   /**
    * The delay in milliseconds between calls to refresh the task list.
    */
-  private static final int REFRESH_DELAY = 5000;
+  private static final int REFRESH_DELAY = 500000;//500초
 
   /**
    * A boolean indicating that we should clear the task list when started.
