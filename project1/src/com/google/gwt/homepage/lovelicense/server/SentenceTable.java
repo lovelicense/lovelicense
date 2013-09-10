@@ -52,7 +52,7 @@ import com.google.web.bindery.requestfactory.shared.Request;
     	extensions={@Extension(vendorName="datanucleus",key="field-name",
    			value="version")}
     )
-public class GuestBookTable {
+public class SentenceTable {
 
 	
 	//@PrimaryKey
@@ -85,10 +85,51 @@ public class GuestBookTable {
 	private Integer version;
 	
 	
+
+	@Persistent
+	private String gubun;//구분 : 1(단독), 2(passage)
+	
+	@Persistent
+	private String passage_key;//passage 번호(key)
+	
+	@Persistent
+	private int passage_seq;//passage내 순번
+	
+	@Persistent
+	private String passage_subject;//passage 주제
+	
+	
+	public String getPassage_subject() {
+		return passage_subject;
+	}
+
+
+	public void setPassage_subject(String passage_subject) {
+		this.passage_subject = passage_subject;
+	}
+
+
+
+	@Persistent
+	@NotNull(message = "내용을 입력하세요")
+	@Size(min = 3, message = "3자리 이상 입력하세요")
+	private String sentenceToStudy;//외국어문장
+	
+	
 	@Persistent
 	@NotNull(message = "제목을 입력하세요")
 	@Size(min = 3, message = "제목은 3자리 이상 입력하세요")
-	private String subject;//제목
+	private String sentenceTranslated;//번역된문장
+	
+	
+	@Persistent
+	private int study_cnt;//공부횟수
+	
+	@Persistent
+	private int succese_cnt;//성공횟수
+	
+	@Persistent
+	private Date last_study_dt;//최종학습일
 	
 	@Persistent
 	private Date reg_dt;//등록일
@@ -136,167 +177,30 @@ public class GuestBookTable {
 	@Persistent
 	private String email;//등록자
 	
-	@Persistent
-	private int cnt;//조회수
 	
 	
 	
-	@Persistent
-	@NotNull(message = "내용을 입력하세요")
-	@Size(min = 3, message = "내용은 3자리 이상 입력하세요")
-	private String contents;//본문
-	
-	
-	
-	
-	
-	@Persistent(defaultFetchGroup = "true")
-	private GuestBookAnswerTable answer;//답변
-	
-	 
-	 
-	 
-	//private int questionWriteUpdateGubun =0;//신규등록(0), 수정(1)
-	@NotPersistent
-	private int answerWriteUpdateGubun =0;//답변 신규등록(1), 수정(2)
-	
-	 //글쓴이와 조회하는 사람과 똑같은지
-	public boolean getIsSelf(){
-		boolean result=false;
-		String curUserId = UserServiceWrapper.get().getCurrentUser().getEmail();
-System.out.println("##############"+curUserId+"*"+email);		
-		if(curUserId==null || curUserId.equals("")){//로그인하지 않았으면
-			result=false;
-		}
-		if(email.equals(curUserId)){
-			result=true;
-		}else{
-			result=false;
-		}
-		return result;
-	}
-	
-  
-  public int getAnswerWriteUpdateGubun() {
-		return answerWriteUpdateGubun;
-	}
 
 
-	public void setAnswerWriteUpdateGubun(int answerWriteUpdateGubun) {
-		this.answerWriteUpdateGubun = answerWriteUpdateGubun;
-	}
-
-
-	public GuestBookAnswerTable getAnswer() {
-		return answer;
-	}
-
-
-	public void setAnswer(GuestBookAnswerTable answer) {
-		this.answer = answer;
-	}
-
-
-	
-
-
-
-	public Integer getVersion() {
-		return version;
-	}
-
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
-
-	public String getSubject() {
-		return subject;
-	}
-
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-
-	public Date getReg_dt() {
-		return reg_dt;
-	}
-
-
-	public void setReg_dt(Date reg_dt) {
-		this.reg_dt = reg_dt;
-	}
-
-
-	public Date getModi_dt() {
-		return modi_dt;
-	}
-
-
-	public void setModi_dt(Date modi_dt) {
-		this.modi_dt = modi_dt;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public int getCnt() {
-		return cnt;
-	}
-
-
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
-	}
-
-
-	
-
-
-	public String getContents() {
-		return contents;
-	}
-
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
-
-	public GuestBookTable() {}
+	public SentenceTable() {}
 
   
 	/* 해당하는 게시글 가져옴*/
-	public static GuestBookTable findGuestBookTable(String id) {
-		   
-		
+	public static SentenceTable findSentenceTable(String id) {
+		 //System.out.println("3333333333333333333333333");   
+
 		     PersistenceManager pm = persistenceManager();
-		     //System.out.println("find"+id);  
+		     System.out.println("find"+id);  
 		     try {
 		     	 
-		    	 GuestBookTable guestBook = pm.getObjectById(GuestBookTable.class, id);
+		    	 SentenceTable sentence = pm.getObjectById(SentenceTable.class, id);
 		     //	System.out.println("5555555555555555");  
-		         if(guestBook!=null){
-		        	 return guestBook;
-		         }
-		         return null;
-		     } catch(RuntimeException e) {//delete후 request factory에서 유효성 확인시JDOObjectNotFoundException처리 
-                 return null; 
+		         return sentence;
+		      
+		      
 		     } finally {
 		     	pm.close();
 		     }
-		   
 		   }
 
  
@@ -307,11 +211,10 @@ System.out.println("##############"+curUserId+"*"+email);
   public void persist() {
 	  PersistenceManager pm = persistenceManager();
     try {
-      // Set the user id if this is a new task.
-    	//System.out.println("persist#################");
+      
       String curUserId = UserServiceWrapper.get().getCurrentUser().getEmail();
       
-      
+      /*
       if(answerWriteUpdateGubun==0){//질문 등록 및 수정의 경우
 	      if (email == null) {//질문 insert
 	    	  email = curUserId;
@@ -328,7 +231,7 @@ System.out.println("##############"+curUserId+"*"+email);
       }else if(answerWriteUpdateGubun==2){//답변 수정의 경우
     	  answer.setModi_dt(new Date());
       }
-
+	  */
       
       // Verify the current user owns the task before updating it.
       if (curUserId.equals(email)) {
@@ -360,7 +263,7 @@ System.out.println("##############"+curUserId+"*"+email);
          
 	    	  reg_dt=new Date();
 	    	  modi_dt=new Date();
-	    	  System.out.println("질문 등록");
+	    	  
 	     
 
       
@@ -379,13 +282,13 @@ System.out.println("##############"+curUserId+"*"+email);
 	  PersistenceManager pm = persistenceManager();
     try {
       // Set the user id if this is a new task.
-    	//System.out.println("persist#################");
+    	
       String curUserId = UserServiceWrapper.get().getCurrentUser().getEmail();
       
       modi_dt=new Date();
       
      
-      System.out.println("질문 수정");
+     
       
       // Verify the current user owns the task before updating it.
       if (curUserId.equals(email)) {
@@ -397,34 +300,130 @@ System.out.println("##############"+curUserId+"*"+email);
     }
   }
   
-  /**
-   * 조회수 update
-   */
-  public static void updateCnt(String id) {
-	  
-	  PersistenceManager pm = persistenceManager();
-  
-	     try {
-	     	 
-	    	 GuestBookTable guestBook = pm.getObjectById(GuestBookTable.class, id);
-
-	    	 
-	         if(guestBook!=null){
-	        	 guestBook.setCnt(guestBook.getCnt()+1);
-	        	 pm.makePersistent(guestBook);
-	         }else{
-	        	 return ;
-	         }
-	         
-	     } catch(RuntimeException e) { 
-           System.out.println(e.getStackTrace()); 
-	     } finally {
-	     	pm.close();
-	     }
-  }
+ 
 
   
-  /**
+  public Integer getVersion() {
+	return version;
+}
+
+
+public void setVersion(Integer version) {
+	this.version = version;
+}
+
+
+public String getGubun() {
+	return gubun;
+}
+
+
+public void setGubun(String gubun) {
+	this.gubun = gubun;
+}
+
+
+public String getPassage_key() {
+	return passage_key;
+}
+
+
+public void setPassage_key(String passage_key) {
+	this.passage_key = passage_key;
+}
+
+
+public int getPassage_seq() {
+	return passage_seq;
+}
+
+
+public void setPassage_seq(int passage_seq) {
+	this.passage_seq = passage_seq;
+}
+
+
+public String getSentenceToStudy() {
+	return sentenceToStudy;
+}
+
+
+public void setSentenceToStudy(String sentenceToStudy) {
+	this.sentenceToStudy = sentenceToStudy;
+}
+
+
+public String getSentenceTranslated() {
+	return sentenceTranslated;
+}
+
+
+public void setSentenceTranslated(String sentenceTranslated) {
+	this.sentenceTranslated = sentenceTranslated;
+}
+
+
+public int getStudy_cnt() {
+	return study_cnt;
+}
+
+
+public void setStudy_cnt(int study_cnt) {
+	this.study_cnt = study_cnt;
+}
+
+
+public int getSuccese_cnt() {
+	return succese_cnt;
+}
+
+
+public void setSuccese_cnt(int succese_cnt) {
+	this.succese_cnt = succese_cnt;
+}
+
+
+public Date getLast_study_dt() {
+	return last_study_dt;
+}
+
+
+public void setLast_study_dt(Date last_study_dt) {
+	this.last_study_dt = last_study_dt;
+}
+
+
+public Date getReg_dt() {
+	return reg_dt;
+}
+
+
+public void setReg_dt(Date reg_dt) {
+	this.reg_dt = reg_dt;
+}
+
+
+public Date getModi_dt() {
+	return modi_dt;
+}
+
+
+public void setModi_dt(Date modi_dt) {
+	this.modi_dt = modi_dt;
+}
+
+
+public String getEmail() {
+	return email;
+}
+
+
+public void setEmail(String email) {
+	this.email = email;
+}
+
+
+/**
    * 게시물 삭제
    */
   public void remove() {
@@ -445,7 +444,7 @@ System.out.println("##############"+curUserId+"*"+email);
   /**
    * 방명록 리스트 전체를 가져옴
    */
-  
+  /*
   public static List<GuestBookTable> findAllGuestBooks() {
 	  PersistenceManager pm = persistenceManager();
     try {
@@ -454,12 +453,9 @@ System.out.println("##############"+curUserId+"*"+email);
     	List<GuestBookTable> guestBookList = (List<GuestBookTable>)query.execute();
     	System.out.println("findAllGuestBooks-end"+guestBookList.size());
 
-      /*
-       * If this is the first time running the app, populate the datastore with
-       * some default tasks and re-query the datastore for them.
-       */
+    
     	
-    	/*geustBookList를 곧바로 참고하면 오류가 발생함*/
+    	//geustBookList를 곧바로 참고하면 오류가 발생함/
     	//List<GuestBookTable> detached = pm.detachCopy(guestBookList);
     	
     	 //for(int x=0;x<guestBookList.size();x++)
@@ -477,7 +473,7 @@ System.out.println("##############"+curUserId+"*"+email);
       pm.close();
     }
   }
-
+*/
   
   /**
    * Populate the datastore with some default tasks. We do this to make the app

@@ -37,6 +37,7 @@ public interface GuestBookTableRequest extends RequestContext {
   
    //Request<GuestBookTableProxy> findGuestBookTable(Long id);
   Request<GuestBookTableProxy> findGuestBookTable(String strKey);
+  Request<Void> updateCnt(String id);
   
    
   InstanceRequest<GuestBookTableProxy, Void> persistEdit();//수정

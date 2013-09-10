@@ -15,6 +15,8 @@
  */
 package com.google.gwt.homepage.lovelicense.client.presenter;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.homepage.lovelicense.client.ClientFactory;
@@ -132,7 +134,7 @@ public class GuestBookDetailPresenter implements GuestBookDetailView.Presenter {
     //if (task == null) {
       //task = clientFactory.getTaskProxyLocalStorage().getTask(taskId);
     //}
-    System.out.println("#######detail start");
+    
  //   if (task == null) {
       // Load the existing task.
       clientFactory.getRequestFactory().guestBookTableRequest().findGuestBookTable(this.taskId).fire(
@@ -153,7 +155,7 @@ public class GuestBookDetailPresenter implements GuestBookDetailView.Presenter {
                 return;
               }
 
-              //System.out.println("#######response"+response.getAnswer().getContents());
+            
               // Show the task.
               task = response;
               
@@ -172,23 +174,14 @@ public class GuestBookDetailPresenter implements GuestBookDetailView.Presenter {
               getView().getEditorDriver().edit(response);
               
               
+              //조회수 +1
+              updateCnt(taskId);
+              
+              
+              
             }
           });
-  /*  } else {
-      // Use the task that was passed with the place.
-    	//본인 글이면 수정 버튼 활성화
-        if(task.getIsSelf()){
-      	  getView().setModifyBtn();
-        }
-        
-        if(task.getAnswer()==null || task.getAnswer().getEmail()==null  || task.getAnswer().getEmail().equals("")) {
-        	getView().setAnswerVisible(false);
-        }else{
-        	getView().setAnswerVisible(true);
-        }
-        
-        getView().getEditorDriver().edit(task);
-    }*/
+  
   }
 
   @Override
@@ -219,5 +212,23 @@ public class GuestBookDetailPresenter implements GuestBookDetailView.Presenter {
   private void notify(String message) {
     // TODO Add notification pop-up
     log.fine("Tell the user: " + message);
+  }
+  
+  
+  //조회수 +1
+  private void updateCnt(String id){
+  
+      clientFactory.getRequestFactory().guestBookTableRequest().updateCnt(id).fire(
+    	        new Receiver<Void>() {
+    	          @Override
+    	          public void onFailure(ServerFailure error) {
+    	            // ignore
+    	          }
+
+    	          @Override
+    	          public void onSuccess(Void arg0) {
+    	        	  ;
+    	          }
+    	       });
   }
 }
