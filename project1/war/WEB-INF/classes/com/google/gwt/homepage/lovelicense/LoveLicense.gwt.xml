@@ -6,6 +6,9 @@
   <inherits name='com.google.gwt.place.Place'/>
   <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
   
+  <!-- to use a serializable version of com.google.appengine.api.datastore.Text data class. -->
+  <inherits name="com.resmarksystems.AppEngineDataTypes"/>
+  
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
   <!-- any one of the following lines.                            -->
